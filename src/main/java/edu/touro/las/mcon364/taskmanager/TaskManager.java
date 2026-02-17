@@ -1,6 +1,6 @@
 package edu.touro.las.mcon364.taskmanager;
 
-public class TaskManager {
+public class TaskManager extends RuntimeException{
 
     private final TaskRegistry registry;
 
@@ -11,14 +11,12 @@ public class TaskManager {
     // TODO: Students must refactor this using pattern-matching switch
     // Current implementation uses old-style instanceof checks
     public void run(Command command) {
-        if (command instanceof AddTaskCommand) {
-            command.execute();
-        } else if (command instanceof RemoveTaskCommand) {
-            command.execute();
-        } else if (command instanceof UpdateTaskCommand) {
-            command.execute();
-        } else {
-            throw new IllegalArgumentException("Unknown command type");
+        switch (command) {
+            case AddTaskCommand add -> command.execute();
+            case RemoveTaskCommand remove -> command.execute();
+            case UpdateTaskCommand update -> command.execute();
+            default -> throw new IllegalStateException("Unknown command type");
         }
+
     }
 }
