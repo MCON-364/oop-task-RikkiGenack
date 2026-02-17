@@ -15,6 +15,7 @@ public class TaskManager extends RuntimeException{
             case AddTaskCommand add -> command.execute();
             case RemoveTaskCommand remove -> command.execute();
             case UpdateTaskCommand update -> command.execute();
+            case ClearAllTasksCommand clearAllTasksCommand -> command.execute();
             default -> throw new TaskNotFoundException("Unknown command type");
         }
 
