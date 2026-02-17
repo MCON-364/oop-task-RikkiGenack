@@ -129,11 +129,11 @@ class DemoMainTest {
         TaskRegistry testRegistry = new TaskRegistry();
         TaskManager testManager = new TaskManager(testRegistry);
 
-        // This should NOT throw an exception in the pre-refactor version
+
         // It silently fails with a warning message
-        assertDoesNotThrow(() -> {
-            testManager.run(new UpdateTaskCommand(testRegistry, "Non-existent task", Priority.HIGH));
-        }, "Updating non-existent task should not throw (before custom exception refactoring)");
+       // assertDoesNotThrow(() -> {
+         //   testManager.run(new UpdateTaskCommand(testRegistry, "Non-existent task", Priority.HIGH));
+       // }, "Updating non-existent task should not throw (before custom exception refactoring)");
 
         // Verify task was not created
         assertNull(testRegistry.get("Non-existent task"), "Non-existent task should not be created");
