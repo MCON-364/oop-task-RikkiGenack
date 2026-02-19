@@ -89,13 +89,12 @@ class CommandTest {
     }
 
     @Test
-    @DisplayName("UpdateTaskCommand on non-existent task should not throw (pre-refactor)")
+    @DisplayName("UpdateTaskCommand on non-existent task should throw exception")
     void testUpdateTaskCommandNonExistent() {
         Command command = new UpdateTaskCommand(registry, "Non-existent", Priority.HIGH);
 
         // Pre-refactor: this should not throw, just print a warning
-        assertDoesNotThrow(command::execute,
-                "Updating non-existent task should not throw (before custom exception refactoring)");
+        assertThrows( TaskNotFoundException.class, command::execute);
 
         // Task should not be created
         assertNull(registry.get("Non-existent"),

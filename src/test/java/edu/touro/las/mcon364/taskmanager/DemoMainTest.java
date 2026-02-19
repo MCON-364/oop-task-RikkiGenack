@@ -128,12 +128,11 @@ class DemoMainTest {
     void testDemonstrateUpdatingNonExistentTask() {
         TaskRegistry testRegistry = new TaskRegistry();
         TaskManager testManager = new TaskManager(testRegistry);
+        UpdateTaskCommand utc = new UpdateTaskCommand(testRegistry, "Non-existent task", Priority.MEDIUM);
 
-        // This should NOT throw an exception in the pre-refactor version
+
         // It silently fails with a warning message
-        assertDoesNotThrow(() -> {
-            testManager.run(new UpdateTaskCommand(testRegistry, "Non-existent task", Priority.HIGH));
-        }, "Updating non-existent task should not throw (before custom exception refactoring)");
+        assertThrows(TaskNotFoundException.class, () -> {testManager.run(utc);});
 
         // Verify task was not created
         assertNull(testRegistry.get("Non-existent task"), "Non-existent task should not be created");
@@ -174,14 +173,12 @@ class DemoMainTest {
     }
 
     @Test
-    @DisplayName("Full demo run should execute without exceptions")
+    @DisplayName("Full demo run should not execute without exceptions")
     void testFullDemoRun() {
         DemoMain testDemo = new DemoMain();
 
         // The full demo should run without throwing any exceptions
-        assertDoesNotThrow(() -> {
-            testDemo.run();
-        }, "Full demo should run without exceptions");
+        assertThrows(TaskNotFoundException.class, () -> {testDemo.run();});
     }
 
     @Test
