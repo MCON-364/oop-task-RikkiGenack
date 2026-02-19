@@ -19,7 +19,7 @@ public non-sealed class UpdateTaskCommand implements Command {
         Optional<Task> existing = Optional.ofNullable(registry.get(taskName));
         Task task = existing
                 .orElseThrow(() ->
-                        new TaskNotFoundException("Task not found. Sorry")
+                        new TaskNotFoundException("Non-exsiting task with name " + taskName)
                 );
 
         // Create a new task with updated priority (tasks are immutable)
